@@ -2,11 +2,11 @@ import React, { Component } from "react";
 
 class Main extends Component {
   render() {
+    console.log(this.props)
     return (
       <div id="content">
-        
-        <h1>Adicionar Produto</h1>
-        <form
+        <h1>Produtos</h1>
+        <form className="form-group"
           onSubmit={event => {
             event.preventDefault();
             const name = this.productName.value;
@@ -17,33 +17,38 @@ class Main extends Component {
             this.props.createProduct(name, price);
           }}
         >
-          <div className="form-group mr-sm-2">
-            <input
-              id="productName"
-              type="text"
-              ref={input => {
-                this.productName = input;
-              }}
-              className="form-control"
-              placeholder="Nome do produto"
-              required
-            />
+          <div className="row">
+            <div className="col">
+              <input
+                id="productName"
+                type="text"
+                ref={input => {
+                  this.productName = input;
+                }}
+                className="form-control"
+                placeholder="Nome do produto"
+                required
+              />
+            </div>
+
+            <div  className="col">
+                <input
+                  id="productPrice"
+                  type="text"
+                  ref={input => {
+                    this.productPrice = input;
+                  }}
+                  className="form-control"
+                  placeholder="Valor(em Ether)"
+                  required
+                />
+            </div>
+            <div className="col">
+              <button type="submit" className="btn btn-primary">
+                Salvar
+              </button>
+            </div>
           </div>
-          <div className="form-group mr-sm-2">
-            <input
-              id="productPrice"
-              type="text"
-              ref={input => {
-                this.productPrice = input;
-              }}
-              className="form-control"
-              placeholder="Preço do produto (em Ether)"
-              required
-            />
-          </div>
-          <button type="submit" className="btn btn-primary">
-            Adicionar produto
-          </button>
         </form>
         <p>&nbsp;</p>
         <h2>Comprar produto</h2>
