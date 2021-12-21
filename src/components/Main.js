@@ -2,7 +2,6 @@ import React, { Component } from "react";
 
 class Main extends Component {
   render() {
-    console.log(this.props)
     return (
       <div id="content">
         <h1>Produtos</h1>

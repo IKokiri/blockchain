@@ -38,9 +38,9 @@ event ProductPurchased (
     //Requiere a valid price
     require(_price > 0, "Enter a valid price");
     //Increment product count
-    productCount++;
     //Create the product
     products[productCount] = Product(productCount, _name, _price, msg.sender, false);
+    productCount++;
     //Trigger an event
     emit ProductCreated(productCount, _name, _price, msg.sender, false);
   }
