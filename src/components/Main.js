@@ -94,7 +94,7 @@ class Main extends Component {
                     <td>
                       <div className="row">
                         <div className="col">
-                          {!product.purchased ? (
+                          {!product.sale ? (
                             <button
                               className="btn btn-success"
                               name={product.id}
@@ -111,7 +111,7 @@ class Main extends Component {
                           ) : null}
                         </div>
                         <div className="col">
-                          {!product.purchased ? (
+                          {product.sale ? (
                             <button
                               className="btn btn-info"
                               name={product.id}
