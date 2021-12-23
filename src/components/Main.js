@@ -5,6 +5,12 @@ class Main extends Component {
     const handleSale = (id, saleProduct) =>{
       const newSaleState = (saleProduct)?false:true
       this.props.handleSale(id, newSaleState);
+    }
+
+    const handleProduct = (name, price) =>{
+      this.productName.value = name
+      this.productPrice.value = price
+      this.productName.focus()
 
     }
     return (
@@ -122,12 +128,12 @@ class Main extends Component {
                               className="btn btn-info"
                               name={product.id}
                               value={product.price}
-                              onClick={event => {
-                                this.props.purchaseProduct(
-                                  event.target.name,
-                                  event.target.value
-                                );
-                              }}
+                              onClick={() => 
+                                handleProduct(
+                                  product.name,
+                                  product.price
+                                )
+                              }
                             >
                               Editar
                             </button>
