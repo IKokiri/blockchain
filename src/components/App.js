@@ -47,7 +47,6 @@ class App extends Component {
         })
       }
       this.setState({ loading: false })
-      console.log(this.state.products)
     } else {
       window.alert('Marketplace contract not deployed to detected network.')
     }
@@ -66,14 +65,28 @@ class App extends Component {
     this.purchaseProduct = this.purchaseProduct.bind(this)
   }
 
-  createProduct = (name, price) => {
+  createProduct = (name, price, sale) => {
     this.setState({ loading: true })
-    this.state.marketplace.methods.createProduct(name, price,true).send({ from: this.state.account })
+    this.state.marketplace.methods.createProduct(name, price,sale).send({ from: this.state.account })
       .once('receipt', (receipt) => {
         this.setState({ loading: false })
+      }).on('confirmation', function () {
+        window.location.reload(false);
       })
+      
   }
   
+  handleSale = (id, sale) => {
+    this.setState({ loading: true })
+    this.state.marketplace.methods.markForSale(id,sale).send({ from: this.state.account })
+      .once('receipt', (receipt) => {
+        this.setState({ loading: false })
+      }).on('confirmation', function () {
+        window.location.reload(false);
+      })
+      
+  }
+
   purchaseProduct(id, price) {
     this.setState({ loading: true })
     this.state.marketplace.methods.purchaseProduct(id).send({ from: this.state.account, value: price })
@@ -94,6 +107,7 @@ class App extends Component {
                 : <Main
                   products = {this.state.products}
                   createProduct = {this.createProduct}
+                  handleSale = {this.handleSale}
                   purchaseProduct = {this.purchaseProduct} />
               }
             </main>

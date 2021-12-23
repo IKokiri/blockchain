@@ -2,6 +2,11 @@ import React, { Component } from "react";
 
 class Main extends Component {
   render() {
+    const handleSale = (id, saleProduct) =>{
+      const newSaleState = (saleProduct)?false:true
+      this.props.handleSale(id, newSaleState);
+
+    }
     return (
       <>
         <div id="content" className="container">
@@ -11,11 +16,12 @@ class Main extends Component {
             onSubmit={event => {
               event.preventDefault();
               const name = this.productName.value;
+              const sale = true;
               const price = window.web3.utils.toWei(
                 this.productPrice.value.toString(),
                 "Ether"
               );
-              this.props.createProduct(name, price);
+              this.props.createProduct(name, price, sale);
             }}
           >
             <div className="row">
@@ -45,18 +51,6 @@ class Main extends Component {
                 />
               </div>
               <div>
-                <div className="form-check">
-                  <input
-                    className="form-check-input"
-                    type="checkbox"
-                    value=""
-                    id="flexCheckChecked"
-                    checked
-                  />
-                  <label className="form-check-label" for="flexCheckChecked">
-                    Publicar produto
-                  </label>
-                </div>
               </div>
               <div className="col">
                 <button type="submit" className="btn btn-primary">
@@ -74,6 +68,7 @@ class Main extends Component {
                 <th scope="col">Nome</th>
                 <th scope="col">Preço</th>
                 <th scope="col">Proprietário</th>
+                <th scope="col">À venda</th>
                 <th scope="col"></th>
               </tr>
             </thead>
@@ -91,6 +86,17 @@ class Main extends Component {
                       Eth
                     </td>
                     <td>{product.owner}</td>
+                    <td>
+                    <input
+                    checked={product.sale ? true : false}
+                    className="form-check-input"
+                    type="checkbox"
+                    ref={input => {
+                      this.saleProduct = input;
+                    }}
+                    onChange={()=>handleSale(product.id.toString(), product.sale)}
+                  />
+                    </td>
                     <td>
                       <div className="row">
                         <div className="col">

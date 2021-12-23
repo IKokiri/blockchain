@@ -59,11 +59,11 @@ contract Marketplace {
             productCount,
             _name,
             _price,
-            msg.sender,
-            _sale
+            _sale,
+            msg.sender
         );
         //Trigger an event
-        emit ProductCreated(productCount, _name, _price, msg.sender, _sale);
+        emit ProductCreated(productCount, _name, _price,  _sale, msg.sender);
     }
 
     function markForSale(uint256 _id, bool _sale) public {
