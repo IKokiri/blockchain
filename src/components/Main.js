@@ -2,18 +2,17 @@ import React, { Component } from "react";
 
 class Main extends Component {
   render() {
-    const handleSale = (id, saleProduct) =>{
-      const newSaleState = (saleProduct)?false:true
+    const handleSale = (id, saleProduct) => {
+      const newSaleState = saleProduct ? false : true;
       this.props.handleSale(id, newSaleState);
-    }
+    };
 
-    const handleProduct = (id, name, price) =>{
-      this.productId.value = id
-      this.productName.value = name
-      this.productPrice.value = price
-      this.productName.focus()
-
-    }
+    const handleProduct = (id, name, price) => {
+      this.productId.value = id;
+      this.productName.value = name;
+      this.productPrice.value = price;
+      this.productName.focus();
+    };
     return (
       <>
         <div id="content" className="container">
@@ -29,8 +28,9 @@ class Main extends Component {
                 this.productPrice.value.toString(),
                 "Ether"
               );
-              (!this.productId.value)? this.props.createProduct(name, price, sale) : this.props.updateProduct(id, name, price);
-              
+              !this.productId.value
+                ? this.props.createProduct(name, price, sale)
+                : this.props.updateProduct(id, name, price);
             }}
           >
             <div className="row">
@@ -53,7 +53,6 @@ class Main extends Component {
                   }}
                 />
               </div>
-
               <div className="col">
                 <input
                   id="productPrice"
@@ -66,8 +65,7 @@ class Main extends Component {
                   required
                 />
               </div>
-              <div>
-              </div>
+              <div></div>
               <div className="col">
                 <button type="submit" className="btn btn-primary">
                   Salvar
@@ -90,7 +88,6 @@ class Main extends Component {
             </thead>
             <tbody id="productList">
               {this.props.products.map((product, key) => {
-                console.log(product)
                 return (
                   <tr key={key}>
                     <th scope="row">{product.id.toString()}</th>
@@ -104,15 +101,17 @@ class Main extends Component {
                     </td>
                     <td>{product.owner}</td>
                     <td>
-                    <input
-                    checked={product.sale ? true : false}
-                    className="form-check-input"
-                    type="checkbox"
-                    ref={input => {
-                      this.saleProduct = input;
-                    }}
-                    onChange={()=>handleSale(product.id.toString(), product.sale)}
-                  />
+                      <input
+                        checked={product.sale ? true : false}
+                        className="form-check-input"
+                        type="checkbox"
+                        ref={input => {
+                          this.saleProduct = input;
+                        }}
+                        onChange={() =>
+                          handleSale(product.id.toString(), product.sale)
+                        }
+                      />
                     </td>
                     <td>
                       <div className="row">
@@ -139,7 +138,7 @@ class Main extends Component {
                               className="btn btn-info"
                               name={product.id}
                               value={product.price}
-                              onClick={() => 
+                              onClick={() =>
                                 handleProduct(
                                   product.id,
                                   product.name,
@@ -161,18 +160,17 @@ class Main extends Component {
               })}
             </tbody>
           </table>
-        <footer className="text-center p-4">
-          <p>
-            <a
-              href="https://ropsten.etherscan.io/address/0x781c71bfe45d1c5d81fca75d17bb589cc72d63fc"
-              target="_blank"
-            >
-              INFORMAÇÕES DO CONTRATO
-            </a>
-          </p>
-        </footer>
+          <footer className="text-center p-4">
+            <p>
+              <a
+                href="https://ropsten.etherscan.io/address/0x781c71bfe45d1c5d81fca75d17bb589cc72d63fc"
+                target="_blank"
+              >
+                INFORMAÇÕES DO CONTRATO
+              </a>
+            </p>
+          </footer>
         </div>
-
       </>
     );
   }
