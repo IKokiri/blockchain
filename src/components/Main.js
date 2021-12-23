@@ -167,7 +167,7 @@ class Main extends Component {
           <footer className="text-center p-4">
             <p>
               <a
-                href="https://ropsten.etherscan.io/address/0x781c71bfe45d1c5d81fca75d17bb589cc72d63fc"
+                href="https://rinkeby.etherscan.io/address/0x737B13477e7019f0695595935D0Fff3bf0d94855"
                 target="_blank"
               >
                 INFORMAÇÕES DO CONTRATO
