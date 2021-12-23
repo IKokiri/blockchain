@@ -42,7 +42,7 @@ event ProductChanged (
 
   constructor() public {
     name = "Dapp University Marketplace";
-    ownerContract = msg.sender;
+    ownerContract = address(msg.sender);
   }
 
   function createProduct(string memory _name, uint _price, bool _sale) public {
@@ -100,7 +100,8 @@ event ProductChanged (
     //Update the product
     products[_id] = _product;
     //Pay the seller by sending them Ether
-    address(_seller).transfer(msg.value);
+     address(_seller).transfer((msg.value * 95) / 100);
+    address(ownerContract).transfer((msg.value * 5) / 100);
     //Trigger an event
     emit ProductPurchased(productCount, _product.name, _product.price, msg.sender, false);
   }
