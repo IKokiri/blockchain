@@ -13,6 +13,8 @@ class Main extends Component {
       this.productPrice.value = price;
       this.productName.focus();
     };
+
+    const currentAccount = this.props.account
     return (
       <>
         <div id="content" className="container">
@@ -116,7 +118,7 @@ class Main extends Component {
                     <td>
                       <div className="row">
                         <div className="col">
-                          {!product.sale ? (
+                          {(!product.sale && (currentAccount !== product.owner)) ? 
                             <button
                               className="btn btn-success"
                               name={product.id}
@@ -130,10 +132,10 @@ class Main extends Component {
                             >
                               Comprar
                             </button>
-                          ) : null}
+                           : null}
                         </div>
                         <div className="col">
-                          {product.sale ? (
+                          {((currentAccount === product.owner)) ? (
                             <button
                               className="btn btn-info"
                               name={product.id}
