@@ -103,6 +103,7 @@ class Main extends Component {
                     </td>
                     <td>{product.owner}</td>
                     <td>
+                    {((currentAccount === product.owner)) ? (
                       <input
                         checked={product.sale ? true : false}
                         className="form-check-input"
@@ -114,6 +115,7 @@ class Main extends Component {
                           handleSale(product.id.toString(), product.sale)
                         }
                       />
+                    ):''}
                     </td>
                     <td>
                       <div className="row">
