@@ -86,6 +86,17 @@ class App extends Component {
       })
       
   }
+ 
+  updateProduct = (id, name, price) => {
+    this.setState({ loading: true })
+    this.state.marketplace.methods.updateProduct(id,name,price).send({ from: this.state.account })
+      .once('receipt', (receipt) => {
+        this.setState({ loading: false })
+      }).on('confirmation', function () {
+        window.location.reload(false);
+      })
+      
+  }
 
   purchaseProduct(id, price) {
     this.setState({ loading: true })
@@ -108,6 +119,7 @@ class App extends Component {
                   products = {this.state.products}
                   createProduct = {this.createProduct}
                   handleSale = {this.handleSale}
+                  updateProduct = {this.updateProduct}
                   purchaseProduct = {this.purchaseProduct} />
               }
             </main>

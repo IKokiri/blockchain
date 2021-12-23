@@ -59,11 +59,11 @@ contract Marketplace {
             productCount,
             _name,
             _price,
-            _sale,
-            msg.sender
+            msg.sender,
+            _sale
         );
         //Trigger an event
-        emit ProductCreated(productCount, _name, _price,  _sale, msg.sender);
+        emit ProductCreated(productCount, _name, _price, msg.sender, _sale);
     }
 
     function markForSale(uint256 _id, bool _sale) public {
@@ -76,6 +76,27 @@ contract Marketplace {
         );
         //Mark as purchased
         _product.sale = _sale;
+        //Update the product
+        products[_id] = _product;
+        emit ProductChanged(
+            productCount,
+            _product.name,
+            _product.price,
+            _product.owner,
+            _product.sale
+        );
+    }
+   function updateProduct(uint256 _id, string memory _name, uint256 _price) public {
+        //Fetch the product and make a copy of it
+        Product memory _product = products[_id];
+        //Require that the buyer is not the seller
+        require(
+            msg.sender == _product.owner,
+            "Only the contract owner can marked sale"
+        );
+        //Mark as purchased
+        _product.name = _name;
+        _product.price = _price;
         //Update the product
         products[_id] = _product;
         emit ProductChanged(

@@ -7,7 +7,8 @@ class Main extends Component {
       this.props.handleSale(id, newSaleState);
     }
 
-    const handleProduct = (name, price) =>{
+    const handleProduct = (id, name, price) =>{
+      this.productId.value = id
       this.productName.value = name
       this.productPrice.value = price
       this.productName.focus()
@@ -21,13 +22,15 @@ class Main extends Component {
             className="form-group"
             onSubmit={event => {
               event.preventDefault();
+              const id = this.productId.value;
               const name = this.productName.value;
               const sale = true;
               const price = window.web3.utils.toWei(
                 this.productPrice.value.toString(),
                 "Ether"
               );
-              this.props.createProduct(name, price, sale);
+              (!this.productId.value)? this.props.createProduct(name, price, sale) : this.props.updateProduct(id, name, price);
+              
             }}
           >
             <div className="row">
@@ -41,6 +44,13 @@ class Main extends Component {
                   className="form-control"
                   placeholder="Nome do produto"
                   required
+                />
+                <input
+                  id="productId"
+                  type="hidden"
+                  ref={input => {
+                    this.productId = input;
+                  }}
                 />
               </div>
 
@@ -80,6 +90,7 @@ class Main extends Component {
             </thead>
             <tbody id="productList">
               {this.props.products.map((product, key) => {
+                console.log(product)
                 return (
                   <tr key={key}>
                     <th scope="row">{product.id.toString()}</th>
@@ -130,8 +141,11 @@ class Main extends Component {
                               value={product.price}
                               onClick={() => 
                                 handleProduct(
+                                  product.id,
                                   product.name,
-                                  product.price
+                                  window.web3.utils.fromWei(
+                                    product.price.toString()
+                                  )
                                 )
                               }
                             >
