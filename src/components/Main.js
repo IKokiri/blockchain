@@ -118,7 +118,7 @@ class Main extends Component {
                     <td>
                       <div className="row">
                         <div className="col">
-                          {(!product.sale && (currentAccount !== product.owner)) ? 
+                          {(product.sale && (currentAccount !== product.owner)) ? 
                             <button
                               className="btn btn-success"
                               name={product.id}
